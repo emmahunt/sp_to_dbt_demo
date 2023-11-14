@@ -1,5 +1,7 @@
 --stored proc examples
 
+-- REMOVE ALL ;
+
 CREATE OR REPLACE PROCEDURE ANALYTICS.dbt_vperezmola.UpdateSuppliersPartsOrders()
 RETURNS VARCHAR
 LANGUAGE SQL
