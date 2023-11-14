@@ -74,11 +74,7 @@ select
     parts.p_type as part_type,
     parts.p_container as part_container,
     parts.p_retailprice as part_retail_price, 
-    case
-        when parts.p_type like '%BRASS' then 'brass'
-        else p_type
-    end as part_material,
-
+    parts.p_type  as part_material,
     parts.p_comment as part_comment
 from
     raw.tpch_sf001.supplier suppliers
@@ -86,11 +82,17 @@ from
     left join raw.tpch_sf001.part parts on parts.p_partkey = part_suppliers.ps_partkey;
 
 
+update fct_tpch_parts
+set  part_material =  case
+        when part_material like '%BRASS' then 'brass'
+        else part_material
+    end ;
+
 
 DELETE FROM
     fct_tpch_parts
 WHERE
-    part_material not ilike '%brass%';
+    part_material  ilike '%steel%';
 
 create or replace table fct_tpch_parts_log(part_id string, supplier_is_null string);
 
