@@ -1,0 +1,91 @@
+version: 2
+
+models:
+  - name: fct_tpch_parts
+    description: ""
+    columns:
+      - name: supplier_id
+        data_type: number
+        description: ""
+        tests:
+          - unique
+
+      - name: nation_id
+        data_type: number
+        description: ""
+
+      - name: part_id
+        data_type: number
+        description: ""
+
+      - name: part_supplier_sk
+        data_type: varchar
+        description: ""
+
+      - name: supplier_nation
+        data_type: number
+        description: ""
+
+      - name: part_supplier_available_qty
+        data_type: number
+        description: ""
+
+      - name: part_supplier_cost
+        data_type: number
+        description: ""
+
+      - name: part_supplier_comment
+        data_type: varchar
+        description: ""
+
+      - name: supplier_name
+        data_type: varchar
+        description: ""
+
+      - name: supplier_address
+        data_type: varchar
+        description: ""
+
+      - name: supplier_phone_number
+        data_type: varchar
+        description: ""
+
+      - name: supplier_account_balance
+        data_type: number
+        description: ""
+
+      - name: supplier_comment
+        data_type: varchar
+        description: ""
+
+      - name: part_name
+        data_type: varchar
+        description: ""
+
+      - name: part_manufacturer
+        data_type: varchar
+        description: ""
+
+      - name: part_brand
+        data_type: varchar
+        description: ""
+
+      - name: part_type
+        data_type: varchar
+        description: ""
+
+      - name: part_container
+        data_type: varchar
+        description: ""
+
+      - name: part_retail_price
+        data_type: number
+        description: ""
+
+      - name: part_material
+        data_type: varchar
+        description: ""
+
+      - name: part_comment
+        data_type: varchar
+        description: ""
