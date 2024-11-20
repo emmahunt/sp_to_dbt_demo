@@ -1,13 +1,14 @@
 --stored proc examples
 
--- REMOVE ALL ;
 
-CREATE OR REPLACE PROCEDURE ANALYTICS.dbt_vperezmola.UpdateSuppliersPartsOrders()
+CREATE OR REPLACE PROCEDURE ANALYTICS.dbt_ehunt.UpdateSuppliersPartsOrders()
 RETURNS VARCHAR
 LANGUAGE SQL
 AS
 $$
 BEGIN
+
+-- Define columns and types for table to create
 create or replace table fct_tpch_parts(
     supplier_id string,
     nation_id string,
@@ -32,6 +33,8 @@ create or replace table fct_tpch_parts(
     part_comment string,
     lowest_part_cost_in_region float
 );
+
+-- Define order of columns for data to insert
 insert into
     fct_tpch_parts (
         supplier_id,
@@ -56,6 +59,9 @@ insert into
         part_material,
         part_comment
     )
+
+-- Define the data to insert into the table
+-- We are joining the suppliers table to a mapping table in order to derive information about parts
 select
     suppliers.s_suppkey as supplier_id,
     suppliers.s_nationkey as nation_id,
@@ -83,39 +89,20 @@ from
     left join raw.tpch_sf001.PARTSUPP part_suppliers on suppliers.s_suppkey = part_suppliers.ps_suppkey
     left join raw.tpch_sf001.part parts on parts.p_partkey = part_suppliers.ps_partkey;
 
-
+-- Update the table we just created to modify some of the data, perhaps based on new business requirements
 update fct_tpch_parts
 set  part_material =  case
         when part_material like '%BRASS' then 'brass'
         else part_material
     end ;
 
-
+-- Remove steel parts from the table we created
 DELETE FROM
     fct_tpch_parts
 WHERE
     part_material  ilike '%steel%';
 
-create or replace table fct_tpch_parts_log(part_id string, supplier_is_null string);
-
-insert into fct_tpch_parts_log (
-    part_id, supplier_is_null)
-select part_id,'YES' as supplier_is_null from fct_tpch_parts where supplier_id is null 
-union all 
-select '00000' as part_id, 'YES' as supplier_is_null;
-
-DELETE FROM
-    fct_tpch_parts
-    
-WHERE
-    part_id in (
-        select 
-            fct_tpch_parts.part_id
-        from fct_tpch_parts 
-        inner join fct_tpch_parts_log
-        on fct_tpch_parts.part_id = fct_tpch_parts_log.part_id);
-        
-    RETURN 'Stored procedure executed successfully.';
+RETURN 'Stored procedure executed successfully.';
     
 END;
 $$;
