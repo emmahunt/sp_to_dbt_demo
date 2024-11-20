@@ -1,6 +1,4 @@
-with 
-
-source as (
+with source as (
 
     select * from {{ source('tpch', 'part_suppliers') }}
 
@@ -9,12 +7,11 @@ source as (
 renamed as (
 
     select
-        ps_partkey,
-        ps_suppkey,
-        ps_availqty,
-        ps_supplycost,
-        ps_comment
-
+        ps_partkey as part_id,
+        ps_suppkey as supplier_id,
+        ps_availqty as part_supplier_available_qty,
+        ps_supplycost as part_supplier_cost,
+        ps_comment as part_supplier_comment
     from source
 
 )
