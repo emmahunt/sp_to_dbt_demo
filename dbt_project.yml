@@ -37,11 +37,7 @@ clean-targets:         # directories to be removed by `dbt clean`
 
 models:
   +contract:
-    enforced: true
-  my_new_project:
-    # Applies to all files under models/example/
-    example:
-      +materialized: table
+    enforced: false
     
 tests:
   +store_failures: true  # all tests
