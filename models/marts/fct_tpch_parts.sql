@@ -37,13 +37,7 @@ final as (
         parts.part_brand,
         parts.part_type,
         parts.part_container,
-        parts.part_retail_price, 
-
-        -- Apply the logic used in the stored procedure as a conditional in the model select
-        case
-            when parts.part_type like '%BRASS' then 'brass'
-            else parts.part_type
-        end as part_material,
+        parts.part_retail_price,
         parts.part_comment
     from suppliers
         
