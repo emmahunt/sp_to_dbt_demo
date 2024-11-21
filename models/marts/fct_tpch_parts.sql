@@ -12,7 +12,7 @@ suppliers as (
     select * from {{ ref('stg_tpch__suppliers') }}
 ),
 
-supplier_parts as (
+part_suppliers as (
     select * from {{ ref('stg_tpch__part_suppliers') }}
 ),
 
@@ -20,10 +20,10 @@ final as (
 
     select
         iff(suppliers.supplier_id=2, null, suppliers.supplier_id) as supplier_id,
-        suppliers.nation_id,
+        suppliers.supplier_nation_id,
         parts.part_id,
-        concat(supplier_id, parts.part_id) as part_supplier_sk,
-        suppliers.nation_id as supplier_nation,
+        concat(suppliers.supplier_id, parts.part_id) as part_supplier_sk,
+        suppliers.supplier_nation_id as supplier_nation,
         part_suppliers.part_supplier_available_qty,
         part_suppliers.part_supplier_cost,
         part_suppliers.part_supplier_comment,
@@ -48,10 +48,10 @@ final as (
     from suppliers
         
         left join part_suppliers 
-        on suppliers.supplier_id = part_suppliers.psupplier_id
+        on suppliers.supplier_id = part_suppliers.supplier_id
         
         left join parts 
-        on parts.part_id = part_suppliers.ps_partkey
+        on parts.part_id = part_suppliers.part_id
 
 )
 
