@@ -1,0 +1,22 @@
+models:
+  - name: stg_tpch__parts
+    description: This model processes and filters parts data from the TPCH source, excluding parts made of steel. It provides detailed information about each part, including its identifier, name, manufacturer, brand, type, size, container, retail price, and comments.
+    columns:
+      - name: part_id
+        description: A unique identifier for each part.
+      - name: part_name
+        description: The name of the part.
+      - name: part_manufacturer
+        description: The manufacturer of the part.
+      - name: part_brand
+        description: The brand of the part.
+      - name: part_type
+        description: The type or category of the part, excluding steel parts.
+      - name: part_size
+        description: The size of the part.
+      - name: part_container
+        description: The type of container used for the part.
+      - name: part_retail_price
+        description: The retail price of the part.
+      - name: part_comment
+        description: Additional comments or notes about the part.

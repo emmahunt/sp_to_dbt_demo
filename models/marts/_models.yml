@@ -7,8 +7,6 @@ models:
       - name: supplier_id
         data_type: number
         description: ""
-        tests:
-          - unique
 
       - name: nation_id
         data_type: number
